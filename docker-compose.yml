@@ -2,22 +2,21 @@ version: "3"
 
 services:
   api:
-    image: struckchure/file_storage_api:latest
+    image: ghcr.io/struckchure/file_storage
     expose:
       1276
+    restart: always
 
   nginx:
     build:
       context: .
       dockerfile: ${PWD}/.docker/nginx/Dockerfile
-    env_file:
-      - .env
     depends_on:
       - api
     expose:
       - 80
       - 443
-    restart: unless-stopped
+    restart: always
     environment:
       - VIRTUAL_HOST=site1.example.com
       - LETSENCRYPT_HOST=site1.example.com
